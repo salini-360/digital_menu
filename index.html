@@ -1,0 +1,1068 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Spice House | Digital Menu</title>
+    <meta name="description" content="Explore the Spice House restaurant menu.">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+        /* RESET */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #a83220;
+            --primary-light: #fff0eb;
+            --background: #ffffff;
+            --text: #26211e;
+            --muted: #817a75;
+            --border: #eee9e5;
+            --green: #218447;
+            --red: #c0392b;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        button, input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        /* NAVIGATION BAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.035);
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            min-height: 76px;
+            margin: auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: grid;
+            place-items: center;
+            font-family: Georgia, serif;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .brand-text h1 {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            margin-top: 3px;
+            font-size: 10px;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .nav-label {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 9px 14px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        /* MENU INTRO */
+
+        .menu-heading {
+            text-align: center;
+            padding: 32px 16px 20px;
+        }
+
+        .menu-heading .eyebrow {
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .menu-heading h2 {
+            margin-top: 7px;
+            font-family: Georgia, serif;
+            font-size: clamp(29px, 5vw, 38px);
+        }
+
+        .menu-heading p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        /* SEARCH BAR */
+
+        .search-container {
+            max-width: 650px;
+            margin: auto;
+            padding: 8px 16px 20px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 45px 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            background: #faf9f7;
+            font-size: 14px;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 21px;
+        }
+
+        /* CATEGORY NAVIGATION */
+
+        .category-wrapper {
+            position: sticky;
+            top: 76px;
+            z-index: 90;
+            background: white;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .categories {
+            max-width: 1000px;
+            margin: auto;
+            display: flex;
+            gap: 9px;
+            padding: 13px 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+            background: white;
+            color: #514943;
+            border-radius: 25px;
+            padding: 9px 17px;
+            font-size: 12px;
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* MENU CONTENT */
+
+        .menu-container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 24px 16px 45px;
+        }
+
+        .menu-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 17px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* FOOD GRID */
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .food-card {
+            min-width: 0;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            overflow: hidden;
+            background: white;
+            animation: fadeIn 0.3s ease both;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+        }
+
+        .food-image {
+            position: relative;
+            height: 195px;
+            background: #f3eee9;
+            overflow: hidden;
+        }
+
+        .food-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .food-card:hover .food-image img {
+            transform: scale(1.04);
+        }
+
+        .food-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            color: var(--primary);
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .food-content {
+            padding: 15px;
+        }
+
+        .food-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .food-name {
+            font-family: Georgia, serif;
+            font-size: 18px;
+            line-height: 1.3;
+            overflow-wrap: anywhere;
+        }
+
+        .food-price {
+            color: var(--primary);
+            font-size: 16px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .food-description {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+            min-height: 38px;
+        }
+
+        .food-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            border-top: 1px solid var(--border);
+            margin-top: 13px;
+            padding-top: 11px;
+        }
+
+        .food-category {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .food-type {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 10px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .food-type.veg {
+            color: var(--green);
+        }
+
+        .food-type.nonveg {
+            color: var(--red);
+        }
+
+        .food-dot {
+            width: 11px;
+            height: 11px;
+            border: 1px solid currentColor;
+            display: inline-grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+
+        .food-dot::after {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: currentColor;
+            border-radius: 50%;
+        }
+
+        /* NO SEARCH RESULTS */
+
+        .empty-message {
+            display: none;
+            text-align: center;
+            padding: 50px 15px;
+        }
+
+        .empty-message .emoji {
+            font-size: 42px;
+        }
+
+        .empty-message h3 {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            margin-top: 10px;
+        }
+
+        .empty-message p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            padding: 25px 16px;
+            background: #faf7f3;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer h2 {
+            font-family: Georgia, serif;
+            font-size: 22px;
+        }
+
+        .footer p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .copyright {
+            margin-top: 14px !important;
+            font-size: 10px !important;
+        }
+
+        /* ANIMATION */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* TABLET */
+
+        @media (max-width: 850px) {
+            .food-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
+            }
+
+            .food-image {
+                height: 185px;
+            }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+            .nav-inner {
+                min-height: 67px;
+                padding: 10px 14px;
+                gap: 8px;
+            }
+
+            .logo {
+                width: 39px;
+                height: 39px;
+                font-size: 21px;
+            }
+
+            .brand {
+                gap: 8px;
+            }
+
+            .brand-text h1 {
+                font-size: 19px;
+            }
+
+            .brand-text p {
+                font-size: 8px;
+                letter-spacing: 1.2px;
+            }
+
+            .nav-label {
+                font-size: 10px;
+                padding: 8px 10px;
+            }
+
+            .category-wrapper {
+                top: 67px;
+            }
+
+            .menu-heading {
+                padding-top: 27px;
+            }
+
+            .menu-heading h2 {
+                font-size: 31px;
+            }
+
+            .categories {
+                gap: 8px;
+                padding: 11px 14px;
+            }
+
+            .category-btn {
+                padding: 9px 14px;
+                font-size: 11px;
+            }
+
+            .menu-container {
+                padding: 20px 12px 35px;
+            }
+
+            .food-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .food-image {
+                height: 140px;
+            }
+
+            .food-content {
+                padding: 10px;
+            }
+
+            .food-title-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .food-name {
+                font-size: 16px;
+            }
+
+            .food-price {
+                font-size: 15px;
+            }
+
+            .food-description {
+                font-size: 11px;
+                min-height: 50px;
+                margin-top: 7px;
+            }
+
+            .food-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 7px;
+                margin-top: 10px;
+                padding-top: 9px;
+            }
+
+            .food-category,
+            .food-type {
+                font-size: 10px;
+            }
+
+            .menu-info {
+                font-size: 11px;
+            }
+        }
+
+        /* VERY SMALL PHONES */
+
+        @media (max-width: 350px) {
+            .brand-text h1 {
+                font-size: 16px;
+            }
+
+            .brand-text p {
+                font-size: 7px;
+            }
+
+            .nav-label {
+                font-size: 9px;
+                padding: 7px;
+            }
+
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .food-image {
+                height: 200px;
+            }
+
+            .food-title-row {
+                flex-direction: row;
+            }
+
+            .food-bottom {
+                flex-direction: row;
+            }
+
+            .food-description {
+                min-height: auto;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP NAVIGATION BAR -->
+
+    <header class="navbar">
+
+        <div class="nav-inner">
+
+            <div class="brand">
+
+                <div class="logo">S</div>
+
+                <div class="brand-text">
+                    <h1>Spice House</h1>
+                    <p>Restaurant & Cafe</p>
+                </div>
+
+            </div>
+
+            <div class="nav-label">
+                🍽 Digital Menu
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MENU HEADING -->
+
+    <section class="menu-heading">
+
+        <span class="eyebrow">Freshly Prepared</span>
+
+        <h2>Our Menu</h2>
+
+        <p>Discover your favourite dishes.</p>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="search-container">
+
+        <div class="search-box">
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search food items..."
+                aria-label="Search food items"
+            >
+
+            <span class="search-icon">⌕</span>
+
+        </div>
+
+    </section>
+
+
+    <!-- CATEGORY NAVIGATION -->
+
+    <div class="category-wrapper">
+
+        <div class="categories" id="categories">
+
+            <button class="category-btn active" data-category="All">
+                All Items
+            </button>
+
+            <button class="category-btn" data-category="Starters">
+                Starters
+            </button>
+
+            <button class="category-btn" data-category="Main Course">
+                Main Course
+            </button>
+
+            <button class="category-btn" data-category="Biriyani">
+                Biriyani
+            </button>
+
+            <button class="category-btn" data-category="Drinks">
+                Drinks
+            </button>
+
+            <button class="category-btn" data-category="Desserts">
+                Desserts
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOD MENU -->
+
+    <main class="menu-container">
+
+        <div class="menu-info">
+
+            <span id="resultCount">Showing 10 items</span>
+
+            <span>Prices in ₹</span>
+
+        </div>
+
+        <div class="food-grid" id="foodGrid"></div>
+
+        <div class="empty-message" id="emptyMessage">
+
+            <div class="emoji">🍽️</div>
+
+            <h3>No dishes found</h3>
+
+            <p>Try another search or category.</p>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <h2>Spice House</h2>
+
+        <p>Thank you for dining with us!</p>
+
+        <p>Enjoy every bite ❤️</p>
+
+        <p class="copyright">
+            © <span id="year"></span> Spice House
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        // FOOD MENU DATA
+
+        const menuItems = [
+
+            {
+                name: "Paneer Tikka",
+                category: "Starters",
+                price: 180,
+                description: "Spiced paneer grilled to perfection.",
+                image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=700&q=80",
+                type: "veg",
+                tag: "Popular"
+            },
+
+            {
+                name: "Chicken Tikka",
+                category: "Starters",
+                price: 240,
+                description: "Tender chicken with smoky spices.",
+                image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=700&q=80",
+                type: "nonveg",
+                tag: "Chef's Pick"
+            },
+
+            {
+                name: "Veg Fried Rice",
+                category: "Main Course",
+                price: 160,
+                description: "Fried rice tossed with fresh vegetables.",
+                image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=700&q=80",
+                type: "veg",
+                tag: ""
+            },
+
+            {
+                name: "Butter Naan",
+                category: "Main Course",
+                price: 45,
+                description: "Soft naan brushed with melted butter.",
+                image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=700&q=80",
+                type: "veg",
+                tag: ""
+            },
+
+            
+            {
+                name: "Veg Biriyani",
+                category: "Biriyani",
+                price: 190,
+                description: "Fragrant rice with vegetables and spices.",
+                image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=700&q=80",
+                type: "veg",
+                tag: ""
+            },
+
+            
+
+            {
+                name: "Chocolate Milkshake",
+                category: "Drinks",
+                price: 140,
+                description: "Creamy chocolate milkshake.",
+                image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=700&q=80",
+                type: "veg",
+                tag: "Favourite"
+            },
+
+            {
+                name: "Chocolate Brownie",
+                category: "Desserts",
+                price: 120,
+                description: "Rich chocolate brownie with a soft centre.",
+                image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80",
+                type: "veg",
+                tag: "Must Try"
+            },
+
+            {
+                name: "Vanilla Ice Cream",
+                category: "Desserts",
+                price: 90,
+                description: "Smooth and creamy vanilla ice cream.",
+                image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=700&q=80",
+                type: "veg",
+                tag: ""
+            }
+
+        ];
+
+
+        // SELECT ELEMENTS
+
+        const foodGrid = document.getElementById("foodGrid");
+
+        const searchInput = document.getElementById("searchInput");
+
+        const categoryButtons =
+            document.querySelectorAll(".category-btn");
+
+        const resultCount = document.getElementById("resultCount");
+
+        const emptyMessage = document.getElementById("emptyMessage");
+
+
+        let selectedCategory = "All";
+
+
+        // DISPLAY FOOD ITEMS
+
+        function displayMenu(items) {
+
+            foodGrid.replaceChildren();
+
+            resultCount.textContent =
+                `Showing ${items.length} ${items.length === 1 ? "item" : "items"}`;
+
+            emptyMessage.style.display =
+                items.length === 0 ? "block" : "none";
+
+
+            items.forEach((item, index) => {
+
+                const card = document.createElement("article");
+
+                card.className = "food-card";
+
+                card.style.animationDelay = `${index * 35}ms`;
+
+
+                // IMAGE
+
+                const imageBox = document.createElement("div");
+
+                imageBox.className = "food-image";
+
+
+                const image = document.createElement("img");
+
+                image.src = item.image;
+
+                image.alt = item.name;
+
+                image.loading = "lazy";
+
+                image.onerror = function () {
+                    this.style.visibility = "hidden";
+                };
+
+                imageBox.appendChild(image);
+
+
+                if (item.tag) {
+
+                    const tag = document.createElement("span");
+
+                    tag.className = "food-tag";
+
+                    tag.textContent = item.tag;
+
+                    imageBox.appendChild(tag);
+
+                }
+
+
+                // NAME AND PRICE
+
+                const content = document.createElement("div");
+
+                content.className = "food-content";
+
+
+                const titleRow = document.createElement("div");
+
+                titleRow.className = "food-title-row";
+
+
+                const name = document.createElement("h3");
+
+                name.className = "food-name";
+
+                name.textContent = item.name;
+
+
+                const price = document.createElement("span");
+
+                price.className = "food-price";
+
+                price.textContent =
+                    "₹" + Number(item.price).toLocaleString("en-IN");
+
+
+                titleRow.append(name, price);
+
+
+                // DESCRIPTION
+
+                const description = document.createElement("p");
+
+                description.className = "food-description";
+
+                description.textContent = item.description;
+
+
+                // CATEGORY AND FOOD TYPE
+
+                const bottom = document.createElement("div");
+
+                bottom.className = "food-bottom";
+
+
+                const category = document.createElement("span");
+
+                category.className = "food-category";
+
+                category.textContent = item.category;
+
+
+                const type = document.createElement("span");
+
+                type.className = "food-type";
+
+                type.classList.add(
+                    item.type === "veg" ? "veg" : "nonveg"
+                );
+
+
+                const dot = document.createElement("span");
+
+                dot.className = "food-dot";
+
+
+                const typeText = document.createElement("span");
+
+                typeText.textContent =
+                    item.type === "veg" ? "VEG" : "NON-VEG";
+
+
+                type.append(dot, typeText);
+
+                bottom.append(category, type);
+
+
+                content.append(titleRow, description, bottom);
+
+                card.append(imageBox, content);
+
+                foodGrid.appendChild(card);
+
+            });
+
+        }
+
+
+        // SEARCH AND CATEGORY FILTER
+
+        function filterMenu() {
+
+            const searchTerm =
+                searchInput.value.trim().toLowerCase();
+
+
+            const filteredItems = menuItems.filter(item => {
+
+                const matchesCategory =
+                    selectedCategory === "All" ||
+                    item.category === selectedCategory;
+
+
+                const matchesSearch =
+                    item.name.toLowerCase().includes(searchTerm) ||
+                    item.description.toLowerCase().includes(searchTerm) ||
+                    item.category.toLowerCase().includes(searchTerm);
+
+
+                return matchesCategory && matchesSearch;
+
+            });
+
+
+            displayMenu(filteredItems);
+
+        }
+
+
+        // CATEGORY BUTTON EVENTS
+
+        categoryButtons.forEach(button => {
+
+            button.addEventListener("click", function () {
+
+                categoryButtons.forEach(btn => {
+                    btn.classList.remove("active");
+                });
+
+                this.classList.add("active");
+
+                selectedCategory = this.dataset.category;
+
+                filterMenu();
+
+            });
+
+        });
+
+
+        // SEARCH EVENT
+
+        searchInput.addEventListener("input", filterMenu);
+
+
+        // COPYRIGHT YEAR
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+
+        // SHOW ALL ITEMS ON PAGE LOAD
+
+        displayMenu(menuItems);
+
+    </script>
+
+</body>
+</html>
+```
